@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "../Styles/Container.css";
 
 function Container() {
   const books = [];
@@ -26,6 +27,7 @@ function Container() {
         console.error(error.message);
       }
     }
+    // TODO: Find out how to add the .then functionality to allow implementation of cardList properly to allow the proper return
     fetchData();
     return () => {};
   });
@@ -38,7 +40,12 @@ function Container() {
       </li>
     );
   });
-  return <ul>{cardList}</ul>;
+  const turl = `https://covers.openlibrary.org/b/id/${374277}.jpg`;
+  return (
+    <ul>
+      <img src={turl} alt="" />
+    </ul>
+  );
 }
 
 export default Container;
