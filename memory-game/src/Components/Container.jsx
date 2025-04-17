@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../Styles/Container.css";
 
-function Container({ resetStreak, addStreak }) {
-  let books = [];
-  const [cardList, setCardList] = useState([]);
+function Container({ resetStreak, addStreak, score }) {
+  const [books, setBooks] = useState([]);
   const [chosen, setChosen] = useState([]);
-  const series = ["Malazan", "Discworld", "Wheel+of+Time"];
   useEffect(() => {
+    let r = [];
+    console.log("aa");
+    const series = ["Malazan", "Discworld", "Wheel+of+Time"];
     const url = `https://openlibrary.org/search.json?q=${series[Math.floor(Math.random() * 3)]}&limit=6&language:en`;
     async function fetchData() {
       try {
@@ -18,14 +19,13 @@ function Container({ resetStreak, addStreak }) {
         }
         const json = await response.json();
         for (let n = 0; n < 6; n++) {
-          books.push({
+          r.push({
             title: json.docs[n].title,
             coverID: json.docs[n].cover_i,
           });
         }
-        if (cardList.length == 0) {
-          rollCards();
-        }
+        setBooks(r);
+        books.sort(() => Math.random() - 0.5);
         return json.docs;
       } catch (error) {
         console.error(error.message);
@@ -33,9 +33,9 @@ function Container({ resetStreak, addStreak }) {
     }
     fetchData();
     return () => {
-      books = [];
+      setBooks([]);
     };
-  });
+  }, [score]);
 
   const testChosen = function (id) {
     if (chosen.includes(id)) {
@@ -47,10 +47,20 @@ function Container({ resetStreak, addStreak }) {
       return true;
     }
   };
-
-  const rollCards = function () {
-    setCardList(
-      books.map((book) => {
+  return (
+    <ul
+      onClick={(event) => {
+        event.stopPropagation();
+        let target = event.target;
+        if (testChosen(target.id)) {
+          books.sort(() => Math.random() - 0.5);
+        } else {
+          books.sort(() => Math.random() - 0.5);
+          setChosen([]);
+        }
+      }}
+    >
+      {books.map((book) => {
         const url = `https://covers.openlibrary.org/b/id/${book.coverID}-M.jpg`;
         return (
           <li key={book.coverID}>
@@ -58,22 +68,7 @@ function Container({ resetStreak, addStreak }) {
             <p>{book.title}</p>
           </li>
         );
-      }),
-    );
-  };
-  return (
-    <ul
-      onClick={(event) => {
-        event.stopPropagation();
-        let target = event.target;
-        if (testChosen(target.id)) {
-          rollCards();
-        } else {
-          setChosen([]);
-        }
-      }}
-    >
-      {cardList}
+      })}
     </ul>
   );
 }

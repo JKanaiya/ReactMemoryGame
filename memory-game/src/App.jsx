@@ -18,7 +18,11 @@ function App() {
   return (
     <>
       <Header score={score} streak={streak} />
-      <Container resetStreak={resetStreak} addStreak={addStreak} />
+      <Container
+        resetStreak={resetStreak}
+        addStreak={addStreak}
+        score={score}
+      />
     </>
   );
 }
