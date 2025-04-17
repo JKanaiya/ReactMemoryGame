@@ -7,7 +7,9 @@ function App() {
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
   const resetStreak = function () {
-    setScore(streak);
+    if (streak > score) {
+      setScore(streak);
+    }
     setStreak(0);
   };
   const addStreak = function () {

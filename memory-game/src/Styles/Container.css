@@ -59,14 +59,45 @@ body {
 }
 div {
   display: flex;
+  padding: 2%;
+  gap: 5%;
+  margin-bottom: 3%;
+  place-content: center;
+  background-color: #707078;
+  border-radius: 10px;
 }
 #root {
   display: flex;
   width: 100%;
   flex-direction: column;
   padding: 2%;
+  min-height: 100dvh;
+  background-color: #87919e;
+  place-content: center;
 }
 ul {
   display: grid;
+  gap: 3%;
+  margin-right: 30px;
+  width: 100%;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  min-height: 80dvh;
+  background-color: #714955;
+  padding: 2%;
+  border-radius: 10px;
+  height: auto;
+  overflow-y: scroll;
+  padding-right: 1%;
+}
+li {
+  background-color: #012622;
+  display: flex;
+  place-content: center;
+  border-radius: inherit;
+  flex-direction: column;
+  padding: 2%;
+  align-items: center;
+}
+img {
+  max-width: 50%;
 }

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import "../Styles/Container.css";
 
 function Container({ resetStreak, addStreak }) {
-  const books = [];
+  let books = [];
   const [cardList, setCardList] = useState([]);
   const [chosen, setChosen] = useState([]);
   const series = ["Malazan", "Discworld", "Wheel+of+Time"];
   useEffect(() => {
-    const url = `https://openlibrary.org/search.json?q=${series[Math.floor(Math.random() * 3)]}&limit=12&language:en`;
+    const url = `https://openlibrary.org/search.json?q=${series[Math.floor(Math.random() * 3)]}&limit=6&language:en`;
     async function fetchData() {
       try {
         const response = await fetch(url, {
@@ -17,7 +17,7 @@ function Container({ resetStreak, addStreak }) {
           throw new Error(`Response Status:${response.status}`);
         }
         const json = await response.json();
-        for (let n = 1; n < 7; n++) {
+        for (let n = 0; n < 6; n++) {
           books.push({
             title: json.docs[n].title,
             coverID: json.docs[n].cover_i,
@@ -32,7 +32,9 @@ function Container({ resetStreak, addStreak }) {
       }
     }
     fetchData();
-    return () => {};
+    return () => {
+      books = [];
+    };
   });
 
   const testChosen = function (id) {
