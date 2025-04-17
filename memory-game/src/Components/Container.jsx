@@ -6,7 +6,6 @@ function Container({ resetStreak, addStreak, score }) {
   const [chosen, setChosen] = useState([]);
   useEffect(() => {
     let r = [];
-    console.log("aa");
     const series = ["Malazan", "Discworld", "Wheel+of+Time"];
     const url = `https://openlibrary.org/search.json?q=${series[Math.floor(Math.random() * 3)]}&limit=6&language:en`;
     async function fetchData() {
