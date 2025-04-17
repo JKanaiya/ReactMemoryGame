@@ -6,16 +6,17 @@ import Container from "./Components/Container";
 function App() {
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
-  const updateScore = function (score) {
-    setScore(score);
+  const resetStreak = function () {
+    setScore(streak);
+    setStreak(0);
   };
-  const updateStreak = function (streak) {
-    setStreak(streak);
+  const addStreak = function () {
+    setStreak(streak + 1);
   };
   return (
     <>
       <Header score={score} streak={streak} />
-      <Container />
+      <Container resetStreak={resetStreak} addStreak={addStreak} />
     </>
   );
 }
